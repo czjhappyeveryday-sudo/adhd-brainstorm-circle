@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- Content is a shared public space with no sign-in: tables allow anon SELECT/INSERT only (no update/delete), so nobody can alter others' posts.
+- Data reads/writes go through `src/lib/community.functions.ts` server functions using a handler-created publishable client; input rules (1–5 star priority, lengths) live in `src/lib/community.ts` and are reused client- and server-side.
