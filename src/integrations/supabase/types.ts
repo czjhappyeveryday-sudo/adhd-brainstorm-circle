@@ -14,7 +14,166 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      encouragements: {
+        Row: {
+          author: string
+          content: string
+          created_at: string
+          id: string
+          priority: number
+        }
+        Insert: {
+          author?: string
+          content: string
+          created_at?: string
+          id?: string
+          priority?: number
+        }
+        Update: {
+          author?: string
+          content?: string
+          created_at?: string
+          id?: string
+          priority?: number
+        }
+        Relationships: []
+      }
+      paper_reflections: {
+        Row: {
+          author: string
+          content: string
+          created_at: string
+          id: string
+          paper_id: string
+          priority: number
+        }
+        Insert: {
+          author?: string
+          content: string
+          created_at?: string
+          id?: string
+          paper_id: string
+          priority?: number
+        }
+        Update: {
+          author?: string
+          content?: string
+          created_at?: string
+          id?: string
+          paper_id?: string
+          priority?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "paper_reflections_paper_id_fkey"
+            columns: ["paper_id"]
+            isOneToOne: false
+            referencedRelation: "papers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      papers: {
+        Row: {
+          added_by: string
+          authors: string
+          created_at: string
+          id: string
+          priority: number
+          summary: string
+          title: string
+          url: string
+          year: number | null
+        }
+        Insert: {
+          added_by?: string
+          authors?: string
+          created_at?: string
+          id?: string
+          priority?: number
+          summary?: string
+          title: string
+          url?: string
+          year?: number | null
+        }
+        Update: {
+          added_by?: string
+          authors?: string
+          created_at?: string
+          id?: string
+          priority?: number
+          summary?: string
+          title?: string
+          url?: string
+          year?: number | null
+        }
+        Relationships: []
+      }
+      solutions: {
+        Row: {
+          author: string
+          content: string
+          created_at: string
+          id: string
+          priority: number
+          struggle_id: string
+          title: string
+        }
+        Insert: {
+          author?: string
+          content?: string
+          created_at?: string
+          id?: string
+          priority?: number
+          struggle_id: string
+          title: string
+        }
+        Update: {
+          author?: string
+          content?: string
+          created_at?: string
+          id?: string
+          priority?: number
+          struggle_id?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "solutions_struggle_id_fkey"
+            columns: ["struggle_id"]
+            isOneToOne: false
+            referencedRelation: "struggles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      struggles: {
+        Row: {
+          author: string
+          created_at: string
+          description: string
+          id: string
+          priority: number
+          title: string
+        }
+        Insert: {
+          author?: string
+          created_at?: string
+          description?: string
+          id?: string
+          priority?: number
+          title: string
+        }
+        Update: {
+          author?: string
+          created_at?: string
+          description?: string
+          id?: string
+          priority?: number
+          title?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
