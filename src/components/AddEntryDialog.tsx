@@ -25,6 +25,7 @@ import { StarRating } from "./StarRating";
 import { strugglesQuery } from "@/lib/queries";
 import { addEncouragement, addSolution, addStruggle } from "@/lib/community.functions";
 import { cn } from "@/lib/utils";
+import { encouragementInput, solutionInput, struggleInput } from "@/lib/community";
 
 export type EntryType = "struggle" | "solution" | "encouragement";
 
@@ -78,12 +79,22 @@ export function AddEntryDialog({
   const mutation = useMutation({
     mutationFn: async () => {
       if (type === "struggle")
-        return addStruggle({ data: { title, description: body, priority, author } });
+        return addStruggle({
+          data: struggleInput.parse({ title, description: body, priority, author }),
+        });
       if (type === "solution")
         return addSolution({
-          data: { struggle_id: struggleId, title, content: body, priority, author },
+          data: solutionInput.parse({
+            struggle_id: struggleId,
+            title,
+            content: body,
+            priority,
+            author,
+          }),
         });
-      return addEncouragement({ data: { content: body, priority, author } });
+      return addEncouragement({
+        data: encouragementInput.parse({ content: body, priority, author }),
+      });
     },
     onSuccess: async () => {
       toast.success("已添加，谢谢你的分享 💛");
