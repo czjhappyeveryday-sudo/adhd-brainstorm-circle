@@ -59,7 +59,7 @@ export const listPapers = createServerFn({ method: "GET" }).handler(async () => 
 });
 
 export const addStruggle = createServerFn({ method: "POST" })
-  .inputValidator((d: unknown) => struggleInput.parse(d))
+  .validator((d: unknown) => struggleInput.parse(d))
   .handler(async ({ data }) => {
     const { error } = await publicDb().from("struggles").insert(data);
     if (error) fail("添加困扰失败", error);
@@ -67,7 +67,7 @@ export const addStruggle = createServerFn({ method: "POST" })
   });
 
 export const addSolution = createServerFn({ method: "POST" })
-  .inputValidator((d: unknown) => solutionInput.parse(d))
+  .validator((d: unknown) => solutionInput.parse(d))
   .handler(async ({ data }) => {
     const { error } = await publicDb().from("solutions").insert(data);
     if (error) fail("添加解决办法失败", error);
@@ -75,7 +75,7 @@ export const addSolution = createServerFn({ method: "POST" })
   });
 
 export const addEncouragement = createServerFn({ method: "POST" })
-  .inputValidator((d: unknown) => encouragementInput.parse(d))
+  .validator((d: unknown) => encouragementInput.parse(d))
   .handler(async ({ data }) => {
     const { error } = await publicDb().from("encouragements").insert(data);
     if (error) fail("添加鼓励失败", error);
@@ -83,7 +83,7 @@ export const addEncouragement = createServerFn({ method: "POST" })
   });
 
 export const addPaper = createServerFn({ method: "POST" })
-  .inputValidator((d: unknown) => paperInput.parse(d))
+  .validator((d: unknown) => paperInput.parse(d))
   .handler(async ({ data }) => {
     const { error } = await publicDb().from("papers").insert(data);
     if (error) fail("添加论文失败", error);
@@ -91,7 +91,7 @@ export const addPaper = createServerFn({ method: "POST" })
   });
 
 export const addReflection = createServerFn({ method: "POST" })
-  .inputValidator((d: unknown) => reflectionInput.parse(d))
+  .validator((d: unknown) => reflectionInput.parse(d))
   .handler(async ({ data }) => {
     const { error } = await publicDb().from("paper_reflections").insert(data);
     if (error) fail("添加感悟失败", error);
