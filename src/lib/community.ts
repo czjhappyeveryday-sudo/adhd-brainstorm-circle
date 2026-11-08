@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z, ZodError } from "zod";
 
 // Shared rules for every entry: 1–5 star priority, optional nickname.
 export const prioritySchema = z.number().int().min(1).max(5);
@@ -57,4 +57,18 @@ export function sortByPriority<T extends { priority: number; created_at: string 
 export function formatDate(iso: string) {
   const d = new Date(iso);
   return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`;
+}
+
+export function errorMessage(e: unknown) {
+  if (e instanceof ZodError) return e.issues[0]?.message ?? "填写有误";
+  if (e instanceof Error) {
+    try {
+      const parsed = JSON.parse(e.message);
+      if (Array.isArray(parsed) && parsed[0]?.message) return parsed[0].message as string;
+    } catch {
+      /* not JSON */
+    }
+    return e.message;
+  }
+  return "出错了，请稍后再试";
 }

@@ -16,11 +16,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { StarRating } from "@/components/StarRating";
-import { errorMessage } from "@/components/AddEntryDialog";
 import { AuthorLine, EmptyState, LoadError, PageIntro } from "@/components/PageIntro";
 import { papersQuery } from "@/lib/queries";
 import { addPaper, addReflection } from "@/lib/community.functions";
-import { formatDate, paperInput, reflectionInput, sortByPriority } from "@/lib/community";
+import { errorMessage, formatDate, paperInput, reflectionInput, sortByPriority } from "@/lib/community";
 
 export const Route = createFileRoute("/papers")({
   head: () => ({

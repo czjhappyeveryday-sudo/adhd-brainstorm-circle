@@ -1,7 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { ZodError } from "zod";
 import {
   Dialog,
   DialogContent,
@@ -25,7 +24,7 @@ import { StarRating } from "./StarRating";
 import { strugglesQuery } from "@/lib/queries";
 import { addEncouragement, addSolution, addStruggle } from "@/lib/community.functions";
 import { cn } from "@/lib/utils";
-import { encouragementInput, solutionInput, struggleInput } from "@/lib/community";
+import { encouragementInput, errorMessage, solutionInput, struggleInput } from "@/lib/community";
 
 export type EntryType = "struggle" | "solution" | "encouragement";
 
@@ -34,20 +33,6 @@ const TYPES: { value: EntryType; label: string; emoji: string }[] = [
   { value: "solution", label: "解决办法", emoji: "🌱" },
   { value: "encouragement", label: "鼓励", emoji: "🌈" },
 ];
-
-function errorMessage(e: unknown) {
-  if (e instanceof ZodError) return e.issues[0]?.message ?? "填写有误";
-  if (e instanceof Error) {
-    try {
-      const parsed = JSON.parse(e.message);
-      if (Array.isArray(parsed) && parsed[0]?.message) return parsed[0].message as string;
-    } catch {
-      /* not JSON */
-    }
-    return e.message;
-  }
-  return "出错了，请稍后再试";
-}
 
 export function AddEntryDialog({
   defaultType = "struggle",
@@ -218,4 +203,3 @@ export function AddEntryDialog({
   );
 }
 
-export { errorMessage };
